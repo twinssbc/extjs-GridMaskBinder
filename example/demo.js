@@ -41,25 +41,71 @@ Ext.application({
                             xtype: 'button',
                             text: 'hide grid',
                             handler: function (button) {
-                                button.up('viewport').down('#testGrid').hide();
+                                button.up('viewport').down('#testGridWithMaskBinder').hide();
                             }
                         },
                         {
                             xtype: 'button',
                             text: 'show grid',
                             handler: function (button) {
-                                button.up('viewport').down('#testGrid').show();
+                                button.up('viewport').down('#testGridWithMaskBinder').show();
                             }
                         },
                         {
                             xtype: 'grid',
-                            itemId: 'testGrid',
+                            itemId: 'testGridWithMaskBinder',
                             title: 'A Grid with MaskBinder plugin',
-                            width: 500,
-                            height: 300,
+                            width: 300,
+                            height: 200,
                             draggable: true,
                             collapsible: true,
                             plugins: ['maskbinder'],
+                            tbar: [
+                                {
+                                    text: 'Load',
+                                    handler: function (button) {
+                                        button.up('grid').getStore().load();
+                                    }
+                                }
+                            ],
+                            store: Ext.create('Ext.data.Store', {
+                                fields: ['name'],
+                                proxy: {
+                                    type: 'ajax',
+                                    url: '/app/data',
+                                    reader: {
+                                        type: 'json'
+                                    }
+                                },
+                                data: [
+                                    {
+                                        name: 'test 1'
+                                    },
+                                    {
+                                        name: 'test 2'
+                                    }
+                                ]
+                            }),
+                            columns: {
+                                items: [
+                                    {
+                                        text: 'Name',
+                                        dataIndex: 'name'
+                                    }
+                                ],
+                                defaults: {
+                                    flex: 1
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'grid',
+                            itemId: 'testGridWithoutMaskBinder',
+                            title: 'A Grid without MaskBinder plugin',
+                            width: 300,
+                            height: 200,
+                            draggable: true,
+                            collapsible: true,
                             tbar: [
                                 {
                                     text: 'Load',

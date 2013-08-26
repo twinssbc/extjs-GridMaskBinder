@@ -40,10 +40,10 @@ Ext.define('Ext.ux.MaskBinder', {
             expand: me.onGridExpand,
             collapse: me.onGridCollapse,
             beforerender: function (grid) {
-                me.bindStore(grid.getStore(), true);
+                this.bindStore(grid.getStore(), true);
             },
             reconfigure: function (grid, store) {
-                me.bindStore(store, true);
+                this.bindStore(store, true);
             },
             scope: me
         });
